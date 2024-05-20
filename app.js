@@ -2,8 +2,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 import 'dotenv/config';
 
-// import { MONGODB_URI } from './util/mongoDB-URI.js';
-
 import { authRoutes, shopRoutes, userRoutes } from './routes/index.js';
 import { dummyData } from './util/dummy-data/products-and-shops.js';
 const app = express();
