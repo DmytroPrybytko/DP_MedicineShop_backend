@@ -1,11 +1,14 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import 'dotenv/config';
 
 import { MONGODB_URI } from './util/mongoDB-URI.js';
 
 import { authRoutes, shopRoutes, userRoutes } from './routes/index.js';
 import { dummyData } from './util/dummy-data/products-and-shops.js';
 const app = express();
+
+// console.log(process.env);
 
 app.use(express.json());
 
@@ -33,14 +36,14 @@ app.use((error, req, res, next) => {
 });
 
 try {
-    await mongoose.connect(MONGODB_URI);
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log('Mongoose connected to MongoDB.');
     await dummyData(); // DB fulfilment with dummy data
-    app.listen(8080, (err) => {
+    app.listen(process.env.PORT || 8080, (err) => {
         if (err) {
-            console.log('Can not start up server on localhost:8080. ', err);
+            console.log('Can not start up server. ', err);
         }
-        console.log('Server successfully started on localhost:8080');
+        console.log('Server successfully started');
     });
 } catch (error) {
     console.log("Cann't establish connection to MongoDB. ", error);
